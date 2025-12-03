@@ -1,7 +1,3 @@
-# ←←← COPY THIS FILE TO "config" AND FILL IN YOUR KEYS →→→
-# Get free keys at https://pushover.net (one-time 5-minute signup)
-PUSHOVER_USER="your_user_key_here"
-PUSHOVER_TOKEN="your_app_token_here"
-
-# Optional: fallback email (uncomment if you want email too)
-# EMAIL="you@gmail.com"
+# ←←← COPY THIS FILE TO "config" AND PUT YOUR EMAIL →→→
+# Works with Gmail, Outlook, Yahoo, ProtonMail, etc.
+EMAIL="your-real-email@gmail.com"
