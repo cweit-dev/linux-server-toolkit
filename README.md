@@ -18,7 +18,7 @@ So I automated the boring and the risky.
 | `safe-upgrade.sh`   | Runs apt update/upgrade, logs everything, reboots only if kernel updated | Change management + basic automation        |
 
 ## Screenshots
-![Disk alert example](screenshots/disk-alert-example.png)
+![Disk alert example](screenshots/alert_example.png)
 
 ## Tested on
 - Ubuntu 24.04 LTS
