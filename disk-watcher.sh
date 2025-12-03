@@ -1,25 +1,17 @@
 #!/bin/bash
-# Disk space watchdog – sends email when any partition > 85%
 THRESHOLD=85
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-[ -f "$SCRIPT_DIR/config" ] && source "$SCRIPT_DIR/config"
+LOGFILE="/tmp/disk-watcher.log"
 
-# Default email if not set in config
-EMAIL="${EMAIL:-your-email@gmail.com}"
+echo "=== Disk check $(date) ===" >> "$LOGFILE"
 
-ALERT_SENT=false
-
+ALERT=false
 df -P | tail -n +2 | while read -r DEV TOTAL USED AVAIL USE MOUNT; do
-  USE_PERCENT=$(echo "$USE" | tr -d '%')
-  
+  USE_PERCENT=${USE%?}
   if (( USE_PERCENT > THRESHOLD )); then
-    SUBJECT="Disk Alert – $(hostname) – $MOUNT at ${USE_PERCENT}%"
-    MESSAGE="Warning: $MOUNT ($DEV) is at ${USE_PERCENT}% capacity\n\n$(df -h)\n\nRun: du -sh /* | sort -h  to investigate"
-    
-    echo -e "$MESSAGE" | mail -s "$SUBJECT" "$EMAIL"
-    echo "[$(date)] ALERT SENT: $SUBJECT to $EMAIL"
-    ALERT_SENT=true
+    echo "ALERT: $MOUNT ($DEV) at ${USE_PERCENT}%" | tee -a "$LOGFILE"
+    ALERT=true
   fi
 done
 
-$ALERT_SENT || echo "[$(date)] All disks below ${THRESHOLD}% – OK"
+$ALERT || echo "All good – everything below ${THRESHOLD}%" | tee -a "$LOGFILE"
+echo "----------------------------------" >> "$LOGFILE"
