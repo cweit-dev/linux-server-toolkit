@@ -1,34 +1,29 @@
 # linux-server-toolkit
-Real-world scripts I actually run on my own servers.  
-Built while pursuing Help desk/IT support/admin roles to expand expertise
 
-## Why this exists
-I lost patience with:
-- Running low on disk space unexpectedly
-- Wanting to verify who logged in as root last week
-- Unexpectedly breaking things when I upgrade a server
+A small set of administrative scripts I run on my own systems.
 
-So I automated the boring and the risky.
+### Purpose
+These scripts originated from repetitive tasks I encountered while managing Ubuntu servers in my lab environment. Rather than perform the same checks manually, I wrote tools that execute reliably and leave a clear record.
 
-## The Three Scripts
-| Script              | What it does                                                         |Real job skill it demonstrates                   |
-|---------------------|----------------------------------------------------------------------|---------------------------------------------|
-| `disk-watcher.sh`   | Alerts via Pushover/email if any partition > 85 % full                | Monitoring + proactive support              |
-| `login-auditor.sh`  | Lists last 10 logins + highlights root/direct logins & failed attempts | Security awareness + log analysis           |
-| `safe-upgrade.sh`   | Runs apt update/upgrade, logs everything, reboots only if kernel updated | Change management + basic automation        |
+### Contents
 
-## Screenshots
-![Disk alert example](screenshots/alert_example.png)
+| Script             | Function                                                                 | Rationale                                      |
+|--------------------|--------------------------------------------------------------------------|------------------------------------------------|
+| disk-watcher.sh    | Records mount points exceeding 85 % capacity to /tmp/disk-watcher.log   | Prevents surprises from full filesystems       |
+| login-auditor.sh   | Summarizes recent successful logins and failed SSH attempts            | Quick visibility into potential compromise     |
+| safe-upgrade.sh    | Performs non-interactive update/upgrade; reboots only when kernel packages change | Reduces unplanned downtime after upgrades      |
 
-## Tested on
-- Ubuntu 24.04 LTS
-- Runs on personal lab servers
+Each script depends only on utilities present on a standard Ubuntu/Debian installation. No external services are required.
 
-## Quick Start
+### Requirements
+- Ubuntu 22.04 LTS or 24.04 LTS (tested)  
+- Debian 12 (tested)  
+- Bash ≥ 5.1  
+- Standard system utilities (df, last, journalctl, apt, etc.)
+
+### Usage
 ```bash
-git clone https://github.com/YOUR-USERNAME/linux-server-toolkit.git
+git clone https://github.com/cweit-dev/linux-server-toolkit.git
 cd linux-server-toolkit
-cp config.example config
-# edit config with your Pushover keys or email
 chmod +x *.sh
-./disk-watcher.sh   # test it
+./disk-watcher.sh
