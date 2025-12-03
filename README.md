@@ -1,6 +1,6 @@
 # linux-server-toolkit
 Real-world scripts I actually run on my own servers.  
-Built while working Help desk/tech support roles to expand expertise
+Built while pursuing Help desk/IT support/admin roles to expand expertise
 
 ## Why this exists
 I lost patience with:
