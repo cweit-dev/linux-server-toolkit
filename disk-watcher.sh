@@ -1,5 +1,5 @@
 #!/bin/bash
-THRESHOLD=85
+THRESHOLD=1
 LOGFILE="/tmp/disk-watcher.log"
 
 echo "=== Disk check $(date) ===" >> "$LOGFILE"
